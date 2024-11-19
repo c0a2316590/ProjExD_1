@@ -11,8 +11,11 @@ def main():
     clock  = pg.time.Clock()
     bg_img = pg.image.load("fig/pg_bg.jpg")
     flip_img = pg.transform.flip(bg_img, True, False)
+
     koukaton = pg.image.load("fig/3.png")
     koukaton = pg.transform.flip(koukaton, True, False)
+    kk_rct = koukaton.get_rect()
+    kk_rct.center = 300, 200
     tmr = 0
     while True:
         for event in pg.event.get():
@@ -23,7 +26,17 @@ def main():
         screen.blit(flip_img, [1600-x, 0])
         screen.blit(bg_img, [3200-x, 0])
         screen.blit(flip_img, [4800-x, 200])
-        screen.blit(koukaton, [300, 200])
+
+        key_lst = pg.key.get_pressed()
+        if key_lst[pg.K_UP]:
+            kk_rct.move_ip((0, -1))
+        elif key_lst[pg.K_DOWN]:
+            kk_rct.move_ip((0, 1))
+        elif key_lst[pg.K_RIGHT]:
+            kk_rct.move_ip((1, 0))
+        elif key_lst[pg.K_LEFT]:
+            kk_rct.move_ip((-1, 0))
+        screen.blit(koukaton, kk_rct) #こうかとん
         pg.display.update()
         tmr += 1        
         clock.tick(200)
